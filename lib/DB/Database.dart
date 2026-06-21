@@ -2,21 +2,27 @@ import "package:hive_flutter/hive_flutter.dart";
 // import "package:hive_flutter/hive_flutter.dart";
 
 class TodoData {
-  List TodoList = [];
-  final _mybox = Hive.box("mybox");
+  List<List<dynamic>> TodoList = [];
+  final _mybox = Hive.box("myBoxT");
 
-  void CreateIntalData() {
-    List TodoList = [
+  void createInitialData() {
+    TodoList = [
       ["Buy a Coffee", false],
-      ["fix Engine bug in Timeline", true],
+      ["Fix engine bug in Timeline", true],
     ];
   }
 
   void loadData() {
-    TodoList = _mybox.get("TODOLIST");
+    final storedList = _mybox.get("TODOLIST");
+    if (storedList == null) {
+      createInitialData();
+      updateDatabase();
+    } else {
+      TodoList = List<List<dynamic>>.from(storedList);
+    }
   }
 
-  void UpdateDatabase() {
+  void updateDatabase() {
     _mybox.put("TODOLIST", TodoList);
   }
 }
