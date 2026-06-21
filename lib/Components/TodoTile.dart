@@ -5,17 +5,30 @@ class TodoTile extends StatelessWidget {
   final String TaskName;
   final bool TaskComplted;
   final Function(bool?)? onChanged;
-  
+  final Function(BuildContext)? deleteTask;
+
   TodoTile({
     super.key,
     required this.TaskName,
     required this.TaskComplted,
     required this.onChanged,
+    required this.deleteTask,
   });
 
   @override
   Widget build(BuildContext context) {
     return Slidable(
+      endActionPane: ActionPane(
+        motion: StretchMotion(),
+        children: [
+          SlidableAction(
+            onPressed: deleteTask,
+            icon: Icons.delete,
+            backgroundColor: Colors.red,
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ],
+      ),
       child: Container(
         child: Padding(
           padding: const EdgeInsets.all(25.0),

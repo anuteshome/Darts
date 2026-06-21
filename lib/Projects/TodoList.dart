@@ -43,6 +43,12 @@ class _TodoListState extends State<TodoList> {
     );
   }
 
+  void deleteTask(int index) {
+    setState(() {
+      TodoList.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +60,7 @@ class _TodoListState extends State<TodoList> {
             TaskName: TodoList[index][0],
             TaskComplted: TodoList[index][1],
             onChanged: (value) => checkboxChanged(value, index),
+            deleteTask: (context) => deleteTask(index),
           );
         },
       ),
