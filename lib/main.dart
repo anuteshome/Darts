@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import "package:hive_flutter/hive_flutter.dart";
 import 'package:myapp/Projects/TodoList.dart';
 import 'Pages/First.dart';
 import 'Pages/Homepage.dart';
@@ -6,7 +8,11 @@ import 'Pages/Setting.dart';
 import "Projects/Project.dart";
 import "Projects/TodoSimple.dart";
 
-void main() {
+void main() async {
+  
+  await Hive.initFlutter();
+  await Hive.openBox("myBoxT");
+
   runApp(MyApp());
 }
 

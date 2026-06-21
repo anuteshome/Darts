@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
+import "package:hive_flutter/hive_flutter.dart";
 import "package:myapp/Components/DialogBox.dart";
 import "package:myapp/Components/TodoTile.dart";
+import "package:myapp/DB/Database.dart";
 
 class TodoList extends StatefulWidget {
   TodoList({super.key});
@@ -11,20 +13,20 @@ class TodoList extends StatefulWidget {
 class _TodoListState extends State<TodoList> {
   final TextEditingController _textController = TextEditingController();
 
-  List TodoList = [
-    ["Buy a Coffee", false],
-    ["fix Engine bug in Timeline", true],
-  ];
+  final _mybox = Hive.box("mybox");
+
+  TodoData db = TodoData();
+
 
   void checkboxChanged(bool? value, int index) {
     setState(() {
-      TodoList[index][1] = !TodoList[index][1];
+      db.TodoList[index][1] = ! db.TodoList[index][1];
     });
   }
 
   void SaveBtn() {
     setState(() {
-      TodoList.add([_textController.text, false]);
+       db.TodoList.add([_textController.text, false]);
       _textController.clear();
     });
     Navigator.of(context).pop();
@@ -45,7 +47,7 @@ class _TodoListState extends State<TodoList> {
 
   void deleteTask(int index) {
     setState(() {
-      TodoList.removeAt(index);
+       db.TodoList.removeAt(index);
     });
   }
 
@@ -54,11 +56,11 @@ class _TodoListState extends State<TodoList> {
     return Scaffold(
       appBar: AppBar(leading: Icon(Icons.book), title: Text("Todo List Pro")),
       body: ListView.builder(
-        itemCount: TodoList.length,
+        itemCount:  db.TodoList.length,
         itemBuilder: (context, index) {
           return TodoTile(
-            TaskName: TodoList[index][0],
-            TaskComplted: TodoList[index][1],
+            TaskName:  db.TodoList[index][0],
+            TaskComplted:  db.TodoList[index][1],
             onChanged: (value) => checkboxChanged(value, index),
             deleteTask: (context) => deleteTask(index),
           );
