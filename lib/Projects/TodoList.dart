@@ -25,6 +25,7 @@ class _TodoListState extends State<TodoList> {
   void SaveBtn() {
     setState(() {
       TodoList.add([_textController.text, false]);
+      _textController.clear();
     });
     Navigator.of(context).pop();
   }

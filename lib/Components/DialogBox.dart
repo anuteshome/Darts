@@ -38,27 +38,29 @@ class _DialogBoxState extends State<DialogBox> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                 ElevatedButton(
+                  onPressed:widget.onSave,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Text("Save", style: TextStyle(color: Colors.white)),
+                ),
+                  SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: widget.onCancel,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   child: Text("Cancel", style: TextStyle(color: Colors.white)),
                 ),
-                SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed:widget.onSave,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
-                    ),
-                  ),
-                  child: Text("Save", style: TextStyle(color: Colors.white)),
-                ),
+              
+               
               ],
             ),
           ],
