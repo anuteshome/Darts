@@ -17,6 +17,7 @@ class _TodoListState extends State<TodoList> {
   @override
   void initState() {
     super.initState();
+
     db.loadData();
   }
 
