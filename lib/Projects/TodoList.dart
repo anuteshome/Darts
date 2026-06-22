@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:myapp/Components/DialogBox.dart";
 import "package:myapp/Components/TodoTile.dart";
 import "package:myapp/DB/Database.dart";
+import "package:hive_flutter/hive_flutter.dart";
 
 class TodoList extends StatefulWidget {
   TodoList({super.key});
@@ -10,6 +11,7 @@ class TodoList extends StatefulWidget {
 }
 
 class _TodoListState extends State<TodoList> {
+  final _mybox = Hive.box("mybox");
   final TextEditingController _textController = TextEditingController();
 
   TodoData db = TodoData();
@@ -17,7 +19,9 @@ class _TodoListState extends State<TodoList> {
   @override
   void initState() {
     super.initState();
-
+    if (_mybox.get("TODOLIST") == null) {
+      db.createInitialData();
+    }
     db.loadData();
   }
 
